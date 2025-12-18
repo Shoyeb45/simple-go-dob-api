@@ -72,7 +72,7 @@ func (h *UserHandler) UpdateUser(c *fiber.Ctx) error {
 	idInNum, err := strconv.ParseInt(id, 10, 64);
 
 	if err != nil {
-		return core.NewBadRequestError("Not valid id given, id: " + id).WithInternal(err);
+		return core.NewBadRequestError("Not valid id given").WithInternal(err).WithDetails("id", id);
 	}
 
 	body, err := core.ParseBody[models.UserCreate](c);
@@ -81,6 +81,12 @@ func (h *UserHandler) UpdateUser(c *fiber.Ctx) error {
 		return err;
 	}
 
+	// first check if the user is present or not
+	_, err = h.service.GetUser(c.Context(), idInNum);
+
+	if err != nil {
+		return core.NewNotFoundError("No user is present with given ID.").WithDetails("id", id).WithInternal(err);
+	}
 	updatedUser, err := h.service.UpdateUser(c.Context(), idInNum, *body);
 
 	if err != nil {

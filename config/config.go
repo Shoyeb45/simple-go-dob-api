@@ -17,11 +17,11 @@ type Config struct {
 var Cfg *Config
 
 func LoadEnvironmentVariables() error {
-	err := godotenv.Load(".env")
+	godotenv.Load(".env")
 
-	if err != nil {
-		return errors.New("error loading .env file")
-	}
+	// if err != nil {
+	// 	return errors.New("error loading .env file")
+	// }
 
 	Cfg = &Config{
 		APP_ENV: getEnv("APP_ENV", "development"),

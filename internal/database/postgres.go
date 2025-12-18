@@ -1,3 +1,4 @@
+// database package let's you connect to Postgresql database.
 package database
 
 import (
