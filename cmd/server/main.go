@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/Shoyeb45/simple-go-dob-api/config"
+	"github.com/Shoyeb45/simple-go-dob-api/internal/app"
 	"github.com/Shoyeb45/simple-go-dob-api/internal/database"
 	"github.com/Shoyeb45/simple-go-dob-api/internal/logger"
-	"github.com/gofiber/fiber/v2"
 	"go.uber.org/zap"
 )
 
@@ -28,16 +28,12 @@ func main() {
 	defer database.Close();
 
 	// instatiate the fiber app
-	app := fiber.New()
-
-	app.Get("/health", func(c *fiber.Ctx) error {
-		return c.SendString("The server is running.")
-	})
+	app := app.New(database.DB);
 
 	logger.Log.Info("Starting server on port " + config.Cfg.PORT)
 
 	// start the app
-	err = app.Listen(":" + config.Cfg.PORT)
+	err = app.Fiber.Listen(":" + config.Cfg.PORT)
 
 	if err != nil {
 		logger.Log.Fatal("Error occurred while starting server on port 8080.", zap.Error(err))

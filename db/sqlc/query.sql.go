@@ -99,3 +99,25 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, e
 	err := row.Scan(&i.ID, &i.Name, &i.Dob)
 	return i, err
 }
+
+const updateUserPartial = `-- name: UpdateUserPartial :one
+UPDATE users
+SET
+  name = COALESCE($2, name),
+  dob  = COALESCE($3, dob)
+WHERE id = $1
+RETURNING id, name, dob
+`
+
+type UpdateUserPartialParams struct {
+	ID   int64
+	Name string
+	Dob  pgtype.Date
+}
+
+func (q *Queries) UpdateUserPartial(ctx context.Context, arg UpdateUserPartialParams) (User, error) {
+	row := q.db.QueryRow(ctx, updateUserPartial, arg.ID, arg.Name, arg.Dob)
+	var i User
+	err := row.Scan(&i.ID, &i.Name, &i.Dob)
+	return i, err
+}

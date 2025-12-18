@@ -5,7 +5,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func Register(app *fiber.App, h *handler.UserHandler) {
+func RegisterUserRoutes(app *fiber.App, h *handler.UserHandler) {
 	app.Post("/users", h.CreateUser);
 	app.Get("/users/:id", h.GetUser);
 	app.Put("/users/:id", h.UpdateUser);

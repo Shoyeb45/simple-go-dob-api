@@ -24,3 +24,11 @@ RETURNING *;
 -- name: DeleteUser :exec
 DELETE FROM users
 WHERE id = $1;
+
+-- name: UpdateUserPartial :one
+UPDATE users
+SET
+  name = COALESCE($2, name),
+  dob  = COALESCE($3, dob)
+WHERE id = $1
+RETURNING id, name, dob;
