@@ -23,13 +23,10 @@ func (r *UserRepository) GetByID(ctx context.Context, id int64) (*db.User, error
 }
 
 // Create the user with dob and name
-func (r *UserRepository) Create(ctx context.Context, name string, dob *time.Time) (*db.User, error) {
+func (r *UserRepository) Create(ctx context.Context, name string, dob *pgtype.Date) (*db.User, error) {
 	createdUser, err := r.q.CreateUser(ctx, db.CreateUserParams{
 		Name: name,
-		Dob: pgtype.Date{
-			Time:  *dob,
-			Valid: true,
-		},
+		Dob: *dob,
 	})
 
 	return &createdUser, err
@@ -59,4 +56,9 @@ func (r *UserRepository) UpdateById(ctx context.Context, name *string, dob *time
 // Delete the user by Id
 func (r *UserRepository) DeleteById(ctx context.Context, id int64) error {
 	return r.q.DeleteUser(ctx, id)
+}
+
+
+func (r *UserRepository) GetAllUsers(ctx context.Context) ([]db.User, error) {
+	return  r.q.ListUsers(ctx);
 }

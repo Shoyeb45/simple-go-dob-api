@@ -41,6 +41,5 @@ func New (db *pgxpool.Pool) *App {
 	// register routes
 	routes.RegisterUserRoutes(app, userHandler);
 
-
 	return &App{Fiber: app};
 }
