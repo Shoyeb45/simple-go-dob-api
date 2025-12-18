@@ -222,7 +222,7 @@ Shoyeb Ansari - [@Shoyeb45](https://github.com/Shoyeb45)
 
 ## 🙏 Acknowledgments
 
-- [Alex Mux](https://youtu)
+- [Alex Mux](https://www.youtube.com/@mr_mux408)
 - [Fiber Framework](https://gofiber.io/)
 - [SQLC](https://sqlc.dev/)
 - [golang-migrate](https://github.com/golang-migrate/migrate)
