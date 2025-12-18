@@ -14,7 +14,7 @@ A clean and efficient backend application written in Go for managing user data w
 The application provides a complete REST API with the following endpoints:
 
 - **Create User** - `POST /users` - Register a new user
-- **Get All Users** - `GET /users` - Retrieve list of all users
+- **Get All Users** - `GET /users?page=1&limit=10` - Retrieve list of all users with pagination
 - **Get User** - `GET /users/:id` - Fetch details of a specific user
 - **Update User** - `PUT /users/:id` - Update existing user information
 - **Delete User** - `DELETE /users/:id` - Remove a user from the system

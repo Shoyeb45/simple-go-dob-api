@@ -54,8 +54,18 @@ func (s *UserService) CreateUser(ctx context.Context, body *models.UserCreate) (
 }
 
 // Get all the users present in the db
-func (h *UserService) GetAllUsers(ctx context.Context) ([]models.UserResponse, error) {
-	users, err := h.repo.GetAllUsers(ctx);
+func (h *UserService) GetAllUsers(ctx context.Context, page, limit int) ([]models.UserResponse, error) {
+	if page < 1 {
+		page = 1;
+	}
+
+	if limit <= 0 || limit > 100 {
+		limit = 10;
+	}
+
+	offset := (page - 1) * limit;
+
+	users, err := h.repo.GetUsersWithPagination(ctx, offset, limit);
 
 	if err != nil {
 		return nil, core.NewInternalError("Failed to retrieve users.").WithInternal(err);

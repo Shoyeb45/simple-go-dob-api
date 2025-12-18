@@ -32,3 +32,11 @@ SET
   dob  = COALESCE($3, dob)
 WHERE id = $1
 RETURNING id, name, dob;
+
+
+
+-- name: ListUsersPaginated :many
+SELECT * 
+FROM users
+ORDER BY id
+LIMIT $1 OFFSET $2;

@@ -60,5 +60,13 @@ func (r *UserRepository) DeleteById(ctx context.Context, id int64) error {
 
 
 func (r *UserRepository) GetAllUsers(ctx context.Context) ([]db.User, error) {
-	return  r.q.ListUsers(ctx);
+	return r.q.ListUsers(ctx);
+}
+
+// Get users with pagination, specify offset and limit
+func (r *UserRepository) GetUsersWithPagination(ctx context.Context, offset, limit int) ([]db.User, error) {
+	return r.q.ListUsersPaginated(ctx, db.ListUsersPaginatedParams{
+		Limit: int32(limit),
+		Offset: int32(offset),
+	});
 }
