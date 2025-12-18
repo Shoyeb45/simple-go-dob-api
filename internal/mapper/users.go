@@ -1,6 +1,8 @@
 package mapper
 
 import (
+	"time"
+
 	db "github.com/Shoyeb45/simple-go-dob-api/db/sqlc"
 	"github.com/Shoyeb45/simple-go-dob-api/internal/core"
 	"github.com/Shoyeb45/simple-go-dob-api/internal/models"
@@ -32,7 +34,8 @@ func UsersToResponse(users []db.User) []models.UserResponse {
 func UserToWithAgeResponse(u *db.User) *models.UserWithAgeResponse {
     base := UserToResponse(u)
 
-    age := core.CalculateAge(u.Dob.Time)
+	now := time.Now();
+    age := core.CalculateAge(u.Dob.Time, &now);
 
     return &models.UserWithAgeResponse{
         UserResponse: *base,

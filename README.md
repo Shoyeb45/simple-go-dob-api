@@ -182,7 +182,7 @@ curl -X DELETE http://localhost:3000/users/1
 
 ```bash
 # Run Unit test just for CalculateAge function
-go test ./...
+go test ./tests
 ```
 
 ## Building for Production

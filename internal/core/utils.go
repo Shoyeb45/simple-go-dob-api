@@ -5,8 +5,11 @@ import (
 	"time"
 )
 
-func CalculateAge(dob time.Time) int {
-	now := time.Now();
+// Function to calculate age from the current time, 
+// Note that the current time passed as parameter to make it strong testable.
+// If some person complete 21 years and he/she is in 22nd year then this will output only 21 year.
+// It outputs only completed years.
+func CalculateAge(dob time.Time, now *time.Time) int {
 	age := now.Year() - dob.Year();
 
 	// Check if birthday hasn't occurred yet this year
